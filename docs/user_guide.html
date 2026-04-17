@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MSE Software Guide</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #0f172a;
+        color: #e2e8f0;
+        margin: 40px;
+        line-height: 1.6;
+    }
+    h1 {
+        color: #38bdf8;
+    }
+    h2 {
+        color: #60a5fa;
+        margin-top: 30px;
+    }
+    code {
+        background: #1e293b;
+        padding: 3px 6px;
+        border-radius: 5px;
+        color: #fbbf24;
+    }
+    .box {
+        background: #1e293b;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    ul {
+        list-style-type: disc;
+    }
+    .warn {
+        color: #f87171;
+    }
+</style>
+</head>
+
+<body>
+
+<h1> Team JVLNT - Software Setup and User Guide</h1>
+
+<div class="box">
+<h2>Description of this guide</h2>
+
+<p>
+This guide explains how to set up the required development environment for the
+MSE project. It includes installation steps for
+Visual Studio Code, PlatformIO, and Git, as well as the recommended configuration
+for working with the Pololu 3pi+ 32U4 platform.
+</p>
+
+<p>
+Follow the steps carefully to ensure all team members use a consistent setup,
+so the project builds and runs correctly on all machines.
+</p>
+
+<p><span style="color: #d4a800;">Yellow</span> → Code snippets / terminal commands</p>
+<p><span style="color: #1e66d0;">Blue</span> → Links / external resources</p>
+<p><span style="color: #c62828;">Red</span> → Warnings / critical notes</p>
+
+</div>
+
+<div class="box">
+<h2>1.1 Install Required Software</h2>
+<ul>
+    <li> Install <a href="https://git-scm.com/downloads">Git</a></li>
+    <li> Install <a href="https://code.visualstudio.com/">VS Code</a></li>
+    <li> Install PlatformIO extension in VS Code: <a href="https://docs.platformio.org/en/latest/integration/ide/vscode.html#installation">Installation Guide (only step 1 and 2)</a></li>
+</ul>
+</div>
+
+<div class="box">
+<h2>1.2 Git Installation Settings</h2>
+
+<ul>
+
+<li> Use VS Code Studio as Git's default editor</li>
+
+<li> Let Git decide default branch naming</li>
+
+<li> Git from the command line and also from 3rd-party software</li>
+
+<li> Use bundled OpenSSH</li>
+
+<li> Use the native Windows Secure Channel library</li>
+
+<li> Checkout Windows Style (CRLF handling)</li>
+
+<li> Use MinTTY terminal</li>
+
+<li> Rebase as default pull strategy</li>
+
+<li> Git Credential Manager</li>
+
+<li> Enable File System Caching</li>
+
+</ul>
+
+</div>
+
+<div class="box">
+<h2>2. Verify Git Installation</h2>
+<p>Open terminal and run:</p>
+<code>git --version</code>
+<p>If a version appears → OK ✔</p>
+</div>
+
+<div class="box">
+<h2>3.1 Git Email</h2>
+<p>Find your GitHub noreply email here:</p>
+<p><a href="https://github.com/settings/emails">GitHub Email Settings</a></p>
+
+<p>It looks like:</p>
+<code>12345678+username@users.noreply.github.com</code>
+
+<p>Use it at the Git configuration:</p>
+<code>git config --global user.email</code>
+<p> down below </p>
+</div>
+
+<div class="box">
+<h2>3.2 Configure Git (IMPORTANT - only once)</h2>
+<code>git config --global user.name "Your Name"</code><br>
+<code>git config --global user.email "your-email@example.com"</code>
+</div>
+
+<div class="box">
+<h2>4. Clone the Repository</h2>
+<code>git clone https://github.com/Freddds/Team_JVLNT.git</code>
+</div>
+
+<div class="box">
+<h2>5. Open Project</h2>
+<p>Open VS Code → File → Open Folder → Team_JVLNT</p>
+</div>
+
+<div class="box">
+<h2>6. First Build (PlatformIO)</h2>
+<p>Click PlatformIO icon in left sidebar (the little robot/alien)</p>	
+</div>
+
+<div class="box">
+<h2>7. Workflow (Team Structure)</h2>
+
+<p>
+The project uses a staged branch workflow to keep the main robot code stable while allowing collaborative development on a separate integration branch.
+All development changes are collected in the testing branch before being reviewed and merged into main.
+</p>
+
+<h3>Repository Structure</h3>
+<ul>
+  <li><b>main:</b> Stable, tested robot code used for releases</li>
+  <li><b>testing:</b> Integration branch where all development changes are collected and tested</li>
+</ul>
+
+<h3>Development Workflow</h3>
+<pre>
+<code>git pull origin testing</code>
+↳
+<code>git checkout testing</code>
+↳
+work/code
+↳
+<code>git add .</code>
+↳
+<code>git commit -m "descriptive message"</code>
+↳
+<code>git push origin testing</code>
+</pre>
+
+<h3>Pull Requests (testing → main)</h3>
+
+<p>
+Pushing to the testing branch does NOT automatically create a Pull Request.  
+A Pull Request must be created manually on GitHub.
+</p>
+
+<ol>
+  <li>Push changes to the testing branch using the commands above.</li>
+  <li>Open the <a href="https://github.com/Freddds/Team_JVLNT/compare">repository on GitHub</a> in a browser.</li>
+  <li>Set <b>base</b> to main and <b>compare</b> to testing.</li>
+  <li>Create the Pull Request.</li>
+  <li>Main editors review the changes and merge them into main.</li>
+</ol>
+
+<h3>Main Editors Workflow</h3>
+
+<p>
+Main editors are responsible for reviewing and merging tested changes from testing into main.
+</p>
+
+<pre>
+<code>git checkout main</code>
+<code>git merge testing</code>
+<code>git push origin main</code>
+</pre>
+</div>
+
+<div class="box">
+<h2 class="warn">8. Common Issues</h2>
+<ul>
+    <li>“git not found” → Git not installed properly</li>
+    <li>“pio not found” → PlatformIO extension missing</li>
+    <li>push rejected → run git pull first</li>
+</ul>
+<p> If you encounter an error you can't resolve ask Luca or ChatGPT </p>
+</div>
+
+</body>
+</html>
