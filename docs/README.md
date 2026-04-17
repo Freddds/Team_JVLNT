@@ -68,7 +68,7 @@ See `/docs/state_machine.md`
 ## Architecture
 See `/docs/architecture.md`
 
-## Authors
+## Software Authors
 ### Main
 - Luca Diegel
 - Jan Heller
